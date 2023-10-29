@@ -12,7 +12,6 @@ class CategoryPage extends StatefulWidget {
 }
 
 class _CategoryPageState extends State<CategoryPage> {
-  bool tapped = false;
   @override
   Widget build(BuildContext context) {
     final navigationBloc = BlocProvider.of<NavigationBloc>(context);
@@ -122,15 +121,9 @@ class _CategoryPageState extends State<CategoryPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  InkWell(
+                  GestureDetector(
                     onTap: () {
-                      setState(() {
-                        tapped = true;
-                      });
                       navigationBloc.add(NavigationEvent.navigateToArticlePage);
-                      setState(() {
-                        tapped = false;
-                      });
                     },
                     child: Container(
                       padding: const EdgeInsets.only(top: 25, left: 20),
@@ -138,7 +131,7 @@ class _CategoryPageState extends State<CategoryPage> {
                       height: 120,
                       width: (MediaQuery.of(context).size.width - 56) / 2,
                       decoration: BoxDecoration(
-                        color: tapped ? Colors.orange : Colors.white,
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(

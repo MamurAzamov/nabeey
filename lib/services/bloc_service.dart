@@ -151,7 +151,7 @@ class BlocProviderIns {
                   case 10:
                     return const Article3();
                   case 11:
-                    return const ArticleInside();
+                    return ArticleInside();
                   case 12:
                     return const Article4();
                   case 13:

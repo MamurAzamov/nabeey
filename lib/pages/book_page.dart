@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nabeey_app/pages/book1.dart';
-import 'package:nabeey_app/pages/bookInside.dart';
+
 
 import '../services/bloc_service.dart';
 

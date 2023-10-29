@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:icons_flutter/icons_flutter.dart';
-import 'package:nabeey_app/pages/articleInside.dart';
-import 'package:nabeey_app/pages/signup_page.dart';
 
 import '../services/bloc_service.dart';
 
@@ -103,9 +101,9 @@ class _ArticlePageState extends State<ArticlePage> {
                               ),
                             ),
                             Text(
-                              "Payg'ambarimiz Muhammad Sollallohu alayhi vasallamni dunyoga kelishlari va vahiy nozil bo'lishigacha bo'lgan davr",
+                              "Maqola",
                               style: TextStyle(
-                                fontSize: 13,
+                                fontSize: 16,
                                 color: Colors.white,
                                 fontWeight: FontWeight.w400,
                               ),

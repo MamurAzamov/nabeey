@@ -200,7 +200,7 @@ class _VideoPageState extends State<VideoPage> {
                           Container(
                             width: 100,
                             child: const Text(
-                              "It is a long established fact",
+                              "Muftiy Nuriddin Xoliqnazarov",
                               style: TextStyle(
                                 overflow: TextOverflow.ellipsis,
                                 fontSize: 12,
@@ -293,7 +293,7 @@ class _VideoPageState extends State<VideoPage> {
                             decoration: BoxDecoration(
                               image: const DecorationImage(
                                   image: NetworkImage(
-                                      "https://www.figma.com/file/mm3xkDEmbPovfKyv3zHmv4/image/7d25a268161be4ed1af43b485d04b2568157d19f"),
+                                      "https://i.ytimg.com/vi/pYn8jvqH7z8/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDAiFWWoQ0rT-H1s6yGDd6pMCSmuw"),
                                   fit: BoxFit.cover),
                               borderRadius: BorderRadius.circular(15),
                             ),
@@ -307,7 +307,7 @@ class _VideoPageState extends State<VideoPage> {
                           Container(
                             width: 100,
                             child: const Text(
-                              "It is a long established fact",
+                              "Abdulloh domla",
                               style: TextStyle(
                                 overflow: TextOverflow.ellipsis,
                                 fontSize: 12,

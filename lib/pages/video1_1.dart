@@ -19,7 +19,7 @@ class _Video1PageState extends State<Video1Page> {
   void initState() {
     super.initState();
     const url1 =
-        "https://youtu.be/pYn8jvqH7z8?list=PLvhNrk3VBUfYz6kPUTWeJIPeHFmx9ctlQ";
+        "https://youtu.be/AGLG9vJ9UJQ?si=Om2MTzFPuC-acOmO";
 
     controller1 = YoutubePlayerController(
         initialVideoId: YoutubePlayer.convertUrlToId(url1)!,
@@ -46,7 +46,7 @@ class _Video1PageState extends State<Video1Page> {
   Widget build(BuildContext context) => Scaffold(
     backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
         title: InkWell(
           onTap: () {
             BlocProvider.of<NavigationBloc>(context)
@@ -61,15 +61,6 @@ class _Video1PageState extends State<Video1Page> {
       body: SingleChildScrollView(
         child: Center(
           child: // Container(
-          //   margin: const EdgeInsets.only(left: 20, right: 20),
-          //   child: const Text(
-          //     "Abdulloh domla videolari",
-          //     style: TextStyle(
-          //       fontSize: 24,
-          //       fontWeight: FontWeight.w700,
-          //     ),
-          //   ),
-          // ),
           Container(
             margin: const EdgeInsets.only(top: 199),
             child: Column(
@@ -95,33 +86,6 @@ class _Video1PageState extends State<Video1Page> {
                     ),
                   ),
                 ),
-                // const Row(
-                //   children: [
-                //     Text(
-                //       "12th, July 2022",
-                //       style: TextStyle(
-                //         fontSize: 12,
-                //         fontWeight: FontWeight.w400,
-                //       ),
-                //     ),
-                //     SizedBox(
-                //       width: 24,
-                //     ),
-                //     Text("10.658 views",
-                //         style: TextStyle(
-                //           fontSize: 12,
-                //           fontWeight: FontWeight.w400,
-                //         ))
-                //   ],
-                // ),
-                // const SizedBox(
-                //   height: 8,
-                // ),
-                // const Text("Siyratning fazilati",
-                //     style: TextStyle(
-                //       fontSize: 18,
-                //       fontWeight: FontWeight.w600,
-                //     ))
               ],
             ),
           ),
