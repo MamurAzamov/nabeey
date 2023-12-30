@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import '../imports.dart';
 
 class ArticleSend extends StatefulWidget {
   const ArticleSend({super.key});
@@ -10,28 +10,26 @@ class ArticleSend extends StatefulWidget {
 class _ArticleSendState extends State<ArticleSend> {
   var numberController = TextEditingController();
   var nameController = TextEditingController();
-  var familyController = TextEditingController();
+  var secondnameController = TextEditingController();
   var passwordController = TextEditingController();
 
   _doSignIn() {
-    String num = numberController.text.toString().trim();
+    String number = numberController.text.toString().trim();
     String name = nameController.text.toString().trim();
-    String family = familyController.text.toString().trim();
+    String secondname = secondnameController.text.toString().trim();
     String password = passwordController.text.toString().trim();
-    if (num.isEmpty && name.isEmpty && family.isEmpty && password.isEmpty)
+    if (number.isEmpty &&
+        name.isEmpty &&
+        secondname.isEmpty &&
+        password.isEmpty) {
       return;
-    // Navigator.of(context).push(
-    //   MaterialPageRoute(
-    //     builder: (context) => const ConfirmPage(),
-    //   ),
-    // );
+    }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: null,
-      ),
+      appBar: AppBar(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
         child: Column(
@@ -85,10 +83,10 @@ class _ArticleSendState extends State<ArticleSend> {
                 ),
               ),
               child: TextField(
-                controller: familyController,
+                controller: secondnameController,
                 style: const TextStyle(color: Colors.black),
                 decoration: const InputDecoration(
-                  helperText: "Matn kiriting",
+                    helperText: "Matn kiriting",
                     border: InputBorder.none,
                     hintStyle: TextStyle(fontSize: 17, color: Colors.white54)),
               ),

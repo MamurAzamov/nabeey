@@ -1,153 +1,46 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:icons_flutter/icons_flutter.dart';
-
-import '../services/bloc_service.dart';
+import '../imports.dart';
+import '../models.dart';
 
 class ArticlePage extends StatefulWidget {
   const ArticlePage({super.key});
+  static const String id = "article";
 
   @override
   State<ArticlePage> createState() => _ArticlePageState();
-  static const String id = "article";
 }
 
 class _ArticlePageState extends State<ArticlePage> {
-  List description = [
-    "Расулуллоҳ соллаллоҳу алайҳи васалламнинг туғилишлари Бисмиллаҳир Роҳманир Роҳийм...",
-    "Ўспиринликлари Пайғамбаримиз (соллаллоҳу алайҳи ва саллам)  етим ўсдилар. Ҳали туғилмасларидан оталари...",
-    "Пайғамбарлик аломатларидан Пайғамбарлик аломатларидан аввалгиси муборак кўкракларининг ёрилишидир...",
-    "#МУАТТАР_СИЙРАТ Хадича розияллоҳу анҳога уйланганларидан пайғамбар бўлгунларига қадар бошларидан кечирганлари..."
-  ];
-  List images = [
-    "assets/images/article.jpg",
-    "assets/images/article1.jpg",
-    "assets/images/article2.jpg",
-    "assets/images/article3.jpg"
-  ];
-  List views = ["124", "96", "106", "67"];
-  List navigateList = [
-    NavigationEvent.navigateToArticleInside,
-    NavigationEvent.navigateToArticlePage2,
-    NavigationEvent.navigateToArticlePage3,
-    NavigationEvent.navigateToArticlePage4
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            height: 300,
-            width: double.infinity,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20)),
-              image: DecorationImage(
-                  image: AssetImage("assets/images/makkah.jpg"),
-                  fit: BoxFit.cover),
-            ),
-            child: Container(
-              padding: const EdgeInsets.all(20),
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.bottomRight,
-                  colors: [
-                    Color.fromRGBO(0, 0, 0, 1),
-                    Color.fromRGBO(0, 0, 0, 0.9),
-                    Color.fromRGBO(0, 0, 0, 0.8),
-                    Color.fromRGBO(0, 0, 0, 0.1),
-                  ],
+    return getScaffold(
+      child: Expanded(
+        child: FutureBuilder(
+          future: fetchContent(id: categoryId, type: "articles"),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasError) {
+              return Center(
+                child: Text(
+                  snapshot.error.toString(),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          BlocProvider.of<NavigationBloc>(context)
-                              .add(NavigationEvent.navigateToCategoryPage);
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.only(top: 15),
-                          child: const Icon(
-                            Icons.arrow_back_ios,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 195,
-                        child: const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Payg'ambarlikdan oldingi davr",
-                              style: TextStyle(
-                                fontSize: 24,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            Text(
-                              "Maqola",
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                  Container(
-                    alignment: Alignment.bottomRight,
-                    height: 50,
-                    width: 126,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(66),
-                      color: const Color.fromRGBO(245, 158, 22, 1),
-                    ),
-                    child: Container(
-                      padding: const EdgeInsets.only(
-                          left: 22, right: 10, top: 5, bottom: 5),
-                      child: const Center(
-                        child: Text(
-                          "Bilimingizni sinab ko'ring",
-                          style: TextStyle(
-                            //fontSize: 18,
-                            color: Color.fromRGBO(255, 255, 255, 1),
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-                itemCount: 4,
+              );
+            } else if (!snapshot.hasData) {
+              return const Text('No data available.');
+            } else {
+              final articles = snapshot.data!.data;
+              return ListView.builder(
+                itemCount: articles.length,
                 itemBuilder: (context, i) {
                   return GestureDetector(
                     onTap: () {
-                      BlocProvider.of<NavigationBloc>(context)
-                          .add(navigateList[i]);
+                      setState(() {
+                        articleId = articles[i].id;
+                      });
+                      navigate(9);
                     },
                     child: Container(
                       margin: const EdgeInsets.only(
@@ -155,8 +48,9 @@ class _ArticlePageState extends State<ArticlePage> {
                       height: 320,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                          color: const Color(0xfff3f3f3),
-                          borderRadius: BorderRadius.circular(20)),
+                        color: const Color(0xfff3f3f3),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -164,12 +58,17 @@ class _ArticlePageState extends State<ArticlePage> {
                             height: 170,
                             width: double.infinity,
                             decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(images[i]),
-                                    fit: BoxFit.cover),
-                                borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    topRight: Radius.circular(20))),
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                  articles[i].image.filePath.toString(),
+                                ),
+                                fit: BoxFit.cover,
+                              ),
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                              ),
+                            ),
                           ),
                           const SizedBox(
                             height: 12,
@@ -179,18 +78,19 @@ class _ArticlePageState extends State<ArticlePage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
-                                  "Payg'ambarlikdan oldingi davr",
-                                  style: TextStyle(
+                                Text(
+                                  articles[i].category.name.toString(),
+                                  style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
                                 Text(
-                                  description[i],
+                                  articles[i].text.toString(),
                                   style: const TextStyle(
-                                      //  overflow: TextOverflow.ellipsis,
-                                      ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  maxLines: 3,
                                 ),
                                 const SizedBox(
                                   height: 10,
@@ -204,9 +104,9 @@ class _ArticlePageState extends State<ArticlePage> {
                                     const SizedBox(
                                       width: 5,
                                     ),
-                                    const Text(
-                                      "30.09.2023",
-                                      style: TextStyle(
+                                    Text(
+                                      dates[i],
+                                      style: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w400,
                                       ),
@@ -221,11 +121,13 @@ class _ArticlePageState extends State<ArticlePage> {
                                     const SizedBox(
                                       width: 5,
                                     ),
-                                    Text(views[i],
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                        )),
+                                    Text(
+                                      views[i],
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
                                     const SizedBox(
                                       height: 20,
                                     )
@@ -238,10 +140,184 @@ class _ArticlePageState extends State<ArticlePage> {
                       ),
                     ),
                   );
-                }),
-          )
-        ],
+                },
+              );
+            }
+          },
+        ),
       ),
     );
   }
+}
+
+class ArticleContent extends StatefulWidget {
+  const ArticleContent({super.key});
+  static const String id = 'article_content';
+
+  @override
+  State<ArticleContent> createState() => _ArticleContentState();
+}
+
+class _ArticleContentState extends State<ArticleContent> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: GestureDetector(
+          onTap: () {
+            navigate('back');
+          },
+          child: const Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
+          ),
+        ),
+      ),
+      body: Container(
+        margin: const EdgeInsets.only(left: 20, right: 20),
+        child: FutureBuilder(
+            future: fetchContent(type: "article"),
+            builder: (context, snapshot) {
+              Article? article = snapshot.data;
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text('Error: ${snapshot.error}'),
+                );
+              } else {
+                return ListView(
+                  children: [
+                    Container(
+                      height: 228,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(article!.data.image.filePath),
+                          fit: BoxFit.cover,
+                        ),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      article.data.category.name,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Row(
+                      children: [
+                        Icon(
+                          Feather.calendar,
+                          size: 18,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          "30.09.2023",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 26,
+                        ),
+                        Icon(
+                          Feather.eye,
+                          size: 18,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          "124",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 12,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 38,
+                    ),
+                    Text(article.data.text),
+                  ],
+                );
+              }
+            }),
+      ),
+    );
+  }
+}
+
+Articles articlesFromJson(String str) => Articles.fromJson(json.decode(str));
+
+String articlesToJson(Articles data) => json.encode(data.toJson());
+
+class Articles {
+  int statusCode;
+  String message;
+  List<ArticleData> data;
+
+  Articles({
+    required this.statusCode,
+    required this.message,
+    required this.data,
+  });
+
+  factory Articles.fromJson(Map<String, dynamic> json) => Articles(
+    statusCode: json["statusCode"],
+    message: json["message"],
+    data: List<ArticleData>.from(
+        json["data"].map((x) => ArticleData.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "statusCode": statusCode,
+    "message": message,
+    "data": List<dynamic>.from(data.map((x) => x.toJson())),
+  };
+}
+
+Article articleFromJson(String str) => Article.fromJson(json.decode(str));
+
+String articleToJson(Article data) => json.encode(data.toJson());
+
+class Article {
+  int statusCode;
+  String message;
+  ArticleData data;
+
+  Article({
+    required this.statusCode,
+    required this.message,
+    required this.data,
+  });
+
+  factory Article.fromJson(Map<String, dynamic> json) => Article(
+    statusCode: json["statusCode"],
+    message: json["message"],
+    data: ArticleData.fromJson(json["data"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "statusCode": statusCode,
+    "message": message,
+    "data": data.toJson(),
+  };
 }

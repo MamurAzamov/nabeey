@@ -1,116 +1,119 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nabeey_app/services/bloc_service.dart';
+import '../imports.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
-  static const String id = "home_page";
+  static const String id = 'home_page';
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  List title = [
-    'Payg\'ambarlikdan oldingi davr',
-    'Payg\'ambarlikni boshlanishi',
-    "Madinadagi davr"
-  ];
-  List description = [
-    "Payg'ambarimiz Muhammad Sollallohu alayhi vasallamni dunyoga kelishlari va vahiy nozil bo'lishigacha bo'lgan davr",
-    "Rosululloh Sollallohu alayhi vasallamga vahiy nozil bo'lishi va umumiy Makkadagi davrlari haqida",
-    "Rosululloh Sollallohu alayhi vasallamni Madinaga hijratlari va Madinadagi davrlari"
-  ];
-  List images = [
-    "assets/images/makkah.jpg",
-    "assets/images/categoryy2.jpg",
-    "assets/images/madina1.jpg"
-  ];
-  List navigateList = [
-    NavigationEvent.navigateToCategoryPage,
-    NavigationEvent.navigateToCategory2Page,
-    NavigationEvent.navigateToCategory3Page,
-  ];
+  static int currentIndex = 0;
+  static var pageController = StreamController<int>.broadcast();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Nabeey',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        elevation: 0,
-      ),
-      body: Container(
-        margin: const EdgeInsets.only(top: 20),
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: ListView.builder(
-          itemCount: 3,
-          itemBuilder: (context, i) {
-            return AspectRatio(
-              aspectRatio: 1.4,
-              child: GestureDetector(
-                onTap: () {
-                  BlocProvider.of<NavigationBloc>(context)
-                      .add(navigateList[i]);
-                },
-                child: Container(
-                  margin: const EdgeInsets.only(bottom: 20),
-                  width: double.infinity,
-                  height: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    image: DecorationImage(
-                      image: AssetImage(images[i]),
-                      fit: BoxFit.cover,
-                    ),
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) async {
+        await navigate('back').then((value) => index == 0 ? exit(0) : null);
+      },
+      // onWillPop: () async {
+      //   bool exit = false;
+      //   navigate('back').then(
+      //     (v) => index == 0 ? exit = true : exit = false,
+      //   );
+      //   return exit;
+      // },
+      child: StreamBuilder<int>(
+        stream: pageController.stream,
+        builder: (context, snapshot) {
+          index = snapshot.data ?? 0;
+          return Scaffold(
+            body: const [
+              CategoryPage(),
+              QuizPage(),
+              RatingPage(),
+              ProfilePage(),
+              ContentPage(),
+              ArticlePage(),
+              VideoPage(),
+              AudioPage(),
+              BookPage(),
+              ArticleContent(),
+              VideoContent(),
+            ][index],
+            bottomNavigationBar: Container(
+              height: 60.0,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(30.0),
+                  topRight: Radius.circular(30.0),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 10.0,
+                    spreadRadius: 5.0,
                   ),
-                  child: Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      gradient: const LinearGradient(
-                        begin: Alignment.bottomRight,
-                        colors: [
-                          Color.fromRGBO(0, 0, 0, 1),
-                          Color.fromRGBO(0, 0, 0, 0.8),
-                          Color.fromRGBO(0, 0, 0, 0.5),
-                          Color.fromRGBO(0, 0, 0, 0.0),
-                        ],
-                      ),
+                ],
+              ),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(30.0),
+                  topRight: Radius.circular(30.0),
+                ),
+                child: BottomNavigationBar(
+                  selectedItemColor: const Color(0xFFF59C16),
+                  unselectedItemColor: const Color.fromRGBO(17, 17, 17, 0.5),
+                  showUnselectedLabels: true,
+                  currentIndex: currentIndex,
+                  onTap: (index) {
+                    setState(() {
+                      currentIndex = index;
+                    });
+                    navigate(index);
+                  },
+                  items: const [
+                    BottomNavigationBarItem(
+                      icon: Icon(Feather.home),
+                      label: 'Asosiy',
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          title[i],
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 22,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                         Text(
-                          description[i],
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
+                    BottomNavigationBarItem(
+                      icon: Icon(Feather.help_circle),
+                      label: 'Test',
                     ),
-                  ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Feather.activity),
+                      label: 'Reyting',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Feather.user),
+                      label: 'Profil',
+                    ),
+                  ],
                 ),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
+}
+
+Future navigate(to) async {
+  int go = 0;
+  if (to != 'back') {
+    go = to;
+  } else if (index > 4 && index < 9) {
+    go = 4;
+  } else if (index > 8 && index < 11) {
+    go = index - 4;
+  } else if (index < 4) {
+    _HomePageState.currentIndex = index;
+  }
+  _HomePageState.pageController.sink.add(go);
 }

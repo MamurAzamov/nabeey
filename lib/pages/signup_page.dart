@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:nabeey_app/pages/confirm_page.dart';
+import '../imports.dart';
+import 'confirm_page.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -31,11 +30,11 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.only(left: 20, right: 20, top: 72),
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 72),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "Quiz da qatnashish uchun ",
               style: TextStyle(
                 color: Color.fromRGBO(0, 123, 236, 1),
@@ -43,15 +42,19 @@ class _SignUpPageState extends State<SignUpPage> {
                 fontWeight: FontWeight.w400,
               ),
             ),
-            SizedBox(height: 8,),
-            Text(
+            const SizedBox(
+              height: 8,
+            ),
+            const Text(
               "Ro’yxatdan o’ting",
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w800,
               ),
             ),
-            SizedBox(height: 28,),
+            const SizedBox(
+              height: 28,
+            ),
             const Text(
               "Ism",
               style: TextStyle(
@@ -60,7 +63,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 10),
+              padding: const EdgeInsets.only(left: 10),
               height: 52,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
@@ -75,11 +78,12 @@ class _SignUpPageState extends State<SignUpPage> {
                 style: const TextStyle(color: Colors.black),
                 decoration: const InputDecoration(
                     border: InputBorder.none,
-                    hintStyle: TextStyle(fontSize: 17, color: Colors.white54)
-                ),
+                    hintStyle: TextStyle(fontSize: 17, color: Colors.white54)),
               ),
             ),
-            SizedBox(height: 12,),
+            const SizedBox(
+              height: 12,
+            ),
             const Text(
               "Familiya",
               style: TextStyle(
@@ -88,7 +92,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 10),
+              padding: const EdgeInsets.only(left: 10),
               height: 52,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
@@ -103,11 +107,12 @@ class _SignUpPageState extends State<SignUpPage> {
                 style: const TextStyle(color: Colors.black),
                 decoration: const InputDecoration(
                     border: InputBorder.none,
-                    hintStyle: TextStyle(fontSize: 17, color: Colors.white54)
-                ),
+                    hintStyle: TextStyle(fontSize: 17, color: Colors.white54)),
               ),
             ),
-            SizedBox(height: 12,),
+            const SizedBox(
+              height: 12,
+            ),
             const Text(
               "Tel raqam",
               style: TextStyle(
@@ -116,30 +121,33 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
             Container(
-                padding: const EdgeInsets.only(left: 10),
-                height: 52,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    width: 1,
-                    style: BorderStyle.solid,
-                    color: Colors.grey,
-                  ),
+              padding: const EdgeInsets.only(left: 10),
+              height: 52,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  width: 1,
+                  style: BorderStyle.solid,
+                  color: Colors.grey,
                 ),
-                child: TextField(
-                  controller: numberController,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  style: const TextStyle(color: Colors.black),
-                  decoration: const InputDecoration(
-                      hintText: "+998",
-                      border: InputBorder.none,
-                      hintStyle: TextStyle(fontSize: 14,)
-                  ),
-                ),
+              ),
+              child: TextField(
+                controller: numberController,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                style: const TextStyle(color: Colors.black),
+                decoration: const InputDecoration(
+                    hintText: "+998",
+                    border: InputBorder.none,
+                    hintStyle: TextStyle(
+                      fontSize: 14,
+                    )),
+              ),
             ),
-            const SizedBox(height: 56,),
+            const SizedBox(
+              height: 56,
+            ),
             GestureDetector(
-              onTap: (){
+              onTap: () {
                 _doSignIn();
               },
               child: Container(
@@ -147,8 +155,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                       color: const Color.fromRGBO(245, 156, 22, 1),
-                      borderRadius: BorderRadius.circular(15)
-                  ),
+                      borderRadius: BorderRadius.circular(15)),
                   child: const Center(
                     child: Text(
                       "Ro’yxatdan o’tish",
@@ -158,10 +165,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                  )
-              ),
+                  )),
             )
-
           ],
         ),
       ),

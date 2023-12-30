@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import '../imports.dart';
 
 class QuizPage extends StatefulWidget {
   const QuizPage({super.key});
@@ -11,6 +11,11 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Scaffold(
+      body: Center(
+        child: Text("Can't load quizes"),
+      ),
+    );
   }
 }
+

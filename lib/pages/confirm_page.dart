@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import '../imports.dart';
 
 class ConfirmPage extends StatefulWidget {
   const ConfirmPage({super.key});
@@ -13,7 +13,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text("data"),
+        child: Text("Confirm Page"),
       ),
     );
   }

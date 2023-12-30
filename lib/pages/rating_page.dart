@@ -11,6 +11,8 @@ class RatingPage extends StatefulWidget {
 class _RatingPageState extends State<RatingPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Center(
+      child: Text("Can't load rating"),
+    );
   }
 }
